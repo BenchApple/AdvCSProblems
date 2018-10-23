@@ -4,8 +4,8 @@ def main():
     counts = [1]
     coins = [4, 9, 16, 25, 36, 49, 64, 81] #No 1 in the list because it causes problems later down the line.
 
-    value = 0
-    while value <= 0 or value >= 1000:
+    value = -1
+    while value < 0 or value > 300:
         value = input("What value would you like the combinations for? ")
 
     print(findTotalCombinations(value, counts, coins))

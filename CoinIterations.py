@@ -1,23 +1,31 @@
 import math
 
 def main():
-    comboCounts = [1, 1, 1, 2] ## stores the amount of possible combinations for index n. First four are trivial
-    coins = [1, 4, 9, 16, 25, 36, 49, 64, 81]
+    counts = [1]
+    coins = [4, 9, 16, 25, 36, 49, 64, 81] #No 1 in the list because it causes problems later down the line.
 
     value = 0
-    while value <= 0 or value >= 300:
+    while value <= 0 or value >= 1000:
         value = input("What value would you like the combinations for? ")
 
-    findTotalCombinations(value, comboCounts)
+    print(findTotalCombinations(value, counts, coins))
     
-def findTotalCombinations(n, found):
-    if n in (1, 2, 3, 4):
-        return found[n - 1] #because 0 based list
+def findTotalCombinations(n, counts, coins): ## Solves the problem in a way very similar to a fibonacci sequence.
+    if n == 1:
+        return counts[0] #because 0 based list
 
-    for i in range(4, n):
-        
+    else:
+        for i in range(2, n + 1): ##Goes through each of the values up to n. 
+            count = counts[i-2]
 
-
+            for j in coins:
+                if i % j == 0:
+                    count += 1
+                elif i < j:
+                    break
+            counts.append(count)
+    
+        return counts[len(counts) - 1]    
 
 if __name__ == "__main__":
     main()

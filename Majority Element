@@ -1,0 +1,2 @@
+Smallest problem is 2, where it is impossible to get a majority element, unless both of the elements are the same.
+if the array is empty, return false

@@ -19,6 +19,10 @@ matchingIndex(array[start..end])
 If the array is empty, return false, as there are no elements to fulfill the requirements.
 If the middle element is equal to its index, return true, and this element is the element we want.
 If the middle element is greater than its index, return the result of the algorithm on the first half of the array,
-as there are no duplicates, so it would be impossible for the element that we desire to be in the second half of the array.
+as there are no duplicates, so it would be impossible for the element that we desire to be in the second half of the array,
+as each successive element is going up by at least one, due to being sorted. In addition, the indicies are also incrementing by 
+one each time, making it impossible for the index to ever catch back up to the value for the upper half of the array.
 If the middle element is less than its index, return the result of the algorithm on the second half of the array, 
-as it would be impossible for the element that we want to be in the first half of the array. Therefore, the entire algorithm is correct.
+since the array is sorted, each element going backwards is at least 1 less than the previous, and the indices are going down
+by one every time. Because of this, there is no way for the index to catch up to the value of the element.
+Therefore, the entire algorithm is correct.

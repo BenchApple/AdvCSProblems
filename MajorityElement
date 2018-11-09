@@ -28,4 +28,16 @@ MajorityElement(array[start..end]
         return false
         
 English Description
-If the array is empty, 
+  If the array is empty, return false, as there are no elements to create a majority. If the array has elements, recursively find
+the majority element of each half of the array. 
+  If the majorities of each of the halves equal each other, return the majority of the first half. This covers two of the four potential conditions; where neither half has a majority, and where both halves 
+find the same majority. If both halves don't have a majority element, it is impossible to have a majority element in the array, 
+as if no element takes up more than 50% of either half, the total of any one element would not be able to be more than 50% of the 
+final array.If both halves have the same majority, then there is no way for any other element to be the majority, 
+and the element returned must be the full majority, since it populates at least 51% of each side of the array, resulting 
+in a population greater than 50% in the entire array. 
+  If the halves to not have the same majority, iterate through the array, counting each instance of each of the halves majorities
+If either of the majorities have greater than 50% population, otherwise known as one have of start plus end, return that element,
+as it is the majority element. Only one of these two potential majorities can the final majority, as one cannot have a total
+population greater than 100%. If neither of these majorities have a population greater than 50%, return false, as there
+are no majority elements.

@@ -1,6 +1,6 @@
 //Benjamin Chappell
 
-import java.util.ArrayList
+import java.util.ArrayList<E>
 
 public class BinaryTreeNode<E>
 {
@@ -10,36 +10,98 @@ public class BinaryTreeNode<E>
 
     public BinaryTreeNode() 
     {
-        data = null
-        leftChild = null
-        rightChild = null
+        data = null;
+        leftChild = null;
+        rightChild = null;
     }
     
     public BinaryTreeNode(E d)
     {
-        data = d
-        leftChild = null
-        rightChild = null
+        data = d;
+        leftChild = null;
+        rightChild = null;
     }
     
     public BinaryTreeNode(E d, BinaryTreeNode<E> rChild, BinaryTreeNode<E> lChild)
     {
-        data = d
-        rightChild = rChild
-        liftChild = lChild
+        data = d;
+        rightChild = rChild;
+        liftChild = lChild;
     }
     
-    public static getData()
+    public E getData()
     {
-        return data
+        return data;
     }
     
-    public static setData(E d)
+    public void setData(E d)
     {
-        data = d
+        data = d;
     }
     
-    public static getLeftChild()
+    public BinaryTreeNode<E> getLeftChild()
     {
-        return leftChild
+        return leftChild;
     }
+    
+    public void setLeftChild(BinaryTreeNode<E> newChild)
+    {
+        leftChild = newChild;
+    }
+    
+    public BinaryTreeNode<E> getRightChild()
+    {
+        return rightChild;
+    }
+    
+    public void setRightChild(BinaryTreeNode<E> newChild)
+    {
+        rightChild = newChild;
+    }
+    
+    public boolean isLeaf()
+    {
+        if (rightChild == null && leftChild == null)
+            return true;
+        return false;
+    }
+    
+    public int height()
+    {
+        if (this.data == null or this.isLeaf())
+        {
+            return 0;
+        }
+        else
+        {
+            int rightHeight = this.rightChild.height();
+            int leftChild = this.leftChild.height();
+            
+            if (rightHeight > leftHeight)
+                return 1 + rightHeight
+            else
+                return 1 + leftHeight
+        }
+    }   
+    
+    
+    
+    public ArrayList<E> preorder()
+    {
+        ArrayList<E> preordered = new ArrayList<E>;
+        
+        if (this != null)
+        {
+            preordered.add(data);
+            preordered.addAll(rightChild.preorder());
+            preordered.addAll(leftChild.preorder());
+        }
+        
+        return preordered;
+    }
+    
+    public ArrayList<E> postorder()
+    {
+        
+    }
+}

@@ -12,12 +12,12 @@ public class BinaryTreeNode<E>
 
     public BinaryTreeNode() 
     {
-        this(null);
+        this(null); //Calls the constructor with one argument, passing null in for data.
     }
     
     public BinaryTreeNode(E d)
     {
-        this(d, null, null);
+        this(d, null, null); //Calls the constructor with all three arguments, passing null in for the two children.
     }
     
     public BinaryTreeNode(E d, BinaryTreeNode<E> rChild, BinaryTreeNode<E> lChild)
@@ -79,8 +79,14 @@ public class BinaryTreeNode<E>
         }
         else
         {
-            int rightHeight = this.rightChild.height();
-            int leftHeight = this.leftChild.height();
+            int leftHeight = 0;
+            int rightHeight = 0;
+            
+            if (leftChild != null)
+                leftHeight = this.leftChild.height();
+            
+            if (rightChild != null)   
+                rightHeight = this.rightChild.height();
             
             if (rightHeight > leftHeight)
                 return 1 + rightHeight;
@@ -97,11 +103,15 @@ public class BinaryTreeNode<E>
     {
         ArrayList<E> preordered = new ArrayList<E>();
         
-        if (this != null)
+        if (data != null)
         {
             preordered.add(data);
-            preordered.addAll(leftChild.preorder());
-            preordered.addAll(rightChild.preorder());
+            
+            if (leftChild != null)
+                preordered.addAll(leftChild.preorder());
+                
+            if (rightChild != null)
+                preordered.addAll(rightChild.preorder());
         }
         
         return preordered;
@@ -111,10 +121,14 @@ public class BinaryTreeNode<E>
     {
         ArrayList<E> postordered = new ArrayList<E>();
         
-        if (this != null)
+        if (data != null)
         {
-            postordered.addAll(leftChild.postorder());
-            postordered.addAll(rightChild.postorder());
+            if (leftChild != null)
+                postordered.addAll(leftChild.postorder());
+                
+            if (rightChild != null)
+                postordered.addAll(rightChild.postorder());
+                
             postordered.add(data);
         }    
         return postordered;
@@ -126,9 +140,13 @@ public class BinaryTreeNode<E>
         
         if (this != null)
         {
-            inordered.addAll(leftChild.inorder());
+            if (leftChild != null)
+                inordered.addAll(leftChild.inorder());
+                
             inordered.add(data);
-            inordered.addAll(rightChild.inorder());
+            
+            if (rightChild != null)
+                inordered.addAll(rightChild.inorder());
         }
         return inordered;
     }

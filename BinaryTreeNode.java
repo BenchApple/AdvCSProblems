@@ -137,16 +137,14 @@ public class BinaryTreeNode<E>
     {
         ArrayList<E> postordered = new ArrayList<E>();
         
-        if (data != null) //Make sure that the current node exists.
-        {
-            if (leftChild != null)
-                postordered.addAll(leftChild.postorder()); //Recursively postorder the left half of the tree, then add it all to the arraylist.
+        if (leftChild != null) //Prevent access to nonexitent nodes.
+            postordered.addAll(leftChild.postorder()); //Recursively postorder the left half of the tree, then add it all to the arraylist.
                 
-            if (rightChild != null)
-                postordered.addAll(rightChild.postorder()); //Recursively postorder the right half of the tree, then add it all to the arraylist.
+        if (rightChild != null)
+            postordered.addAll(rightChild.postorder()); //Recursively postorder the right half of the tree, then add it all to the arraylist.
                 
-            postordered.add(data); //Add the data of the current node to the arraylist.
-        }    
+        postordered.add(data); //Add the data of the current node to the arraylist.            
+        
         return postordered;
     }
     
@@ -154,17 +152,15 @@ public class BinaryTreeNode<E>
     public ArrayList<E> inorder()
     {
         ArrayList<E> inordered = new ArrayList<E>();
-        
-        if (this != null) //Make sure that the current node exists.
-        {
-            if (leftChild != null)
-                inordered.addAll(leftChild.inorder()); //Recursively inorder the left half of the tree, then add it all to the arraylist.
+      
+        if (leftChild != null) //Prevent access to nonexitent nodes.
+            inordered.addAll(leftChild.inorder()); //Recursively inorder the left half of the tree, then add it all to the arraylist.
                 
-            inordered.add(data); //Add the data of the current node to the arraylist.
+        inordered.add(data); //Add the data of the current node to the arraylist.
             
-            if (rightChild != null)
-                inordered.addAll(rightChild.inorder()); //Recursively inorder the right half of the tree, then add it all to the arraylist.
-        }
+        if (rightChild != null)
+            inordered.addAll(rightChild.inorder()); //Recursively inorder the right half of the tree, then add it all to the arraylist.
+                
         return inordered;
     }
     
@@ -176,7 +172,7 @@ public class BinaryTreeNode<E>
         
         levelQueue.add(this);
         
-        while (levelQueue.peek() != null) //If there are no elements in the queue, we have gone through each of the elements. Otherwise continue iterating through the queue.
+        while (!levelQueue.isEmpty()) //If there are no elements in the queue, we have gone through each of the elements. Otherwise continue iterating through the queue.
         {
             BinaryTreeNode<E> currentNode = levelQueue.poll(); //Get the current node in the queue and remove it from the queue.
             levelOrdered.add(currentNode.data); //Add the data from the current node to the arraylist.

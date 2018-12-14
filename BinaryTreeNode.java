@@ -110,6 +110,7 @@ public class BinaryTreeNode<E>
     {
         if (data != null)
             return data.toString();
+        return null;
     }
     
     //Returns a list of all of the data in the tree preordered.
@@ -117,16 +118,16 @@ public class BinaryTreeNode<E>
     {
         ArrayList<E> preordered = new ArrayList<E>(); 
         
-        if (data != null) //Make sure that the current node exists.
-        {
-            preordered.add(data); //Add the data of the current node to the arraylist.
+         //Make sure that the current node exists.
+        
+        preordered.add(data); //Add the data of the current node to the arraylist.
             
-            if (leftChild != null)
-                preordered.addAll(leftChild.preorder()); //Recursively preorder the left half of the tree, then add it all to the arraylist.
+        if (leftChild != null)
+            preordered.addAll(leftChild.preorder()); //Recursively preorder the left half of the tree, then add it all to the arraylist.
                 
-            if (rightChild != null)
-                preordered.addAll(rightChild.preorder()); //Recursively preorder the right half of the tree, then add it to the all arraylist.
-        }
+        if (rightChild != null)
+            preordered.addAll(rightChild.preorder()); //Recursively preorder the right half of the tree, then add it to the all arraylist.
+        
         
         return preordered;
     }

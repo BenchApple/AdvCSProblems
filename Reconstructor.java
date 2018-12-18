@@ -27,7 +27,7 @@ public class Reconstructor
         {
             enteredInorder.add(inorderScan.nextInt());
         }
-        System.out.println(enteredPreorder);
+        System.out.println(enteredInorder);
         
         BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder);
         System.out.println(enteredPreorder);
@@ -43,7 +43,7 @@ public class Reconstructor
     
     public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> pre, int preStart, int preEnd, ArrayList<Integer> in, int inStart, int inEnd)
     {
-        if ((preStart < preEnd) || (inStart < inEnd))
+        if ((preStart <= preEnd) || (inStart < inE=nd))
         {
             int rootInt = pre.get(0);
             BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootInt);

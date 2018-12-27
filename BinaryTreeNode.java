@@ -1,74 +1,188 @@
 //Benjamin Chappell
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Queue;
 
-public class Reconstructor
+public class BinaryTreeNode<E>
 {
-    public static void main(String[] args)
+    private E data;
+    private BinaryTreeNode<E> leftChild;
+    private BinaryTreeNode<E> rightChild;
+
+    public BinaryTreeNode() 
     {
-        Scanner keyboard = new Scanner(System.in);
-        
-        ArrayList<Integer> enteredPreorder = new ArrayList<Integer>();
-        ArrayList<Integer> enteredInorder = new ArrayList<Integer>();
-        
-        String preorderStr = keyboard.nextLine();
-        String inorderStr = keyboard.nextLine();
-        
-        Scanner preorderScan = new Scanner(preorderStr);
-        Scanner inorderScan = new Scanner(inorderStr);
-        
-        while (preorderScan.hasNextInt())
-        {
-            enteredPreorder.add(preorderScan.nextInt());
-        }
-        System.out.println(enteredPreorder);
-        
-        while (inorderScan.hasNextInt())
-        {
-            enteredInorder.add(inorderScan.nextInt());
-        }
-        System.out.println(enteredInorder);
-        
-        BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder);
-        System.out.println(enteredPreorder);
-        System.out.println(reconstructedTree.preorder());
-        System.out.println(enteredInorder);
-        System.out.println(reconstructedTree.inorder());
+        this(null); //Calls the constructor with one argument, passing null in for data.
     }
     
-    public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> preordered, ArrayList<Integer> inordered)
+    public BinaryTreeNode(E d)
     {
-        return reconstruct(preordered, 0, preordered.size() - 1, inordered, 0, inordered.size() - 1);
+        this(d, null, null); //Calls the constructor with all three arguments, passing null in for the two children.
     }
     
-    public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> pre, int preStart, int preEnd, ArrayList<Integer> in, int inStart, int inEnd)
+    public BinaryTreeNode(E d, BinaryTreeNode<E> rChild, BinaryTreeNode<E> lChild)
     {
-        if ((preStart <= preEnd) && (inStart <= inEnd))
+        data = d;
+        rightChild = rChild;
+        leftChild = lChild;
+    }
+    
+    //Return the data of the node.
+    public E getData()
+    {
+        return data;
+    }
+    
+    //Set the data of the node.
+    public void setData(E d)
+    {
+        data = d;
+    }
+    
+    //Return the left child.
+    public BinaryTreeNode<E> getLeftChild()
+    {
+        return leftChild;
+    }
+    
+    //Set the left child.
+    public void setLeftChild(BinaryTreeNode<E> newChild)
+    {
+        leftChild = newChild;
+    }
+    
+    //Return the right child.
+    public BinaryTreeNode<E> getRightChild()
+    {
+        return rightChild;
+    }
+    
+    //Set the right child.
+    public void setRightChild(BinaryTreeNode<E> newChild)
+    {
+        rightChild = newChild;
+    }
+    
+    //Check if the node is a leaf or not. Return true if it is a leaf.
+    //Not really needed for the Node as a whole, just nice to make methods like height a little more readable.
+    public boolean isLeaf()
+    {
+        if (rightChild == null && leftChild == null) //Node is a leaf if it does not have any children at all.
+            return true;
+        return false;
+    }
+    
+    //Check if the node is Empty or not. Return True if it is empty.
+    public boolean isEmpty()
+    {
+        if (data == null) //Node is empty if it does not contain any data.
+            return true;
+        return false;
+    }
+    
+    //Gets the height of this node. Height is defined as the largest amount of edges between the node and the furthest leaf.
+    public int height()
+    {
+        if (this.data == null || this.isLeaf()) //If the node is a leaf or does not have any data, there are no edges between the node and a leaf, thus height is 0
         {
-            System.out.println(preStart + "-PreStart");
-            System.out.println(preEnd + "-PreEnd"); 
-            System.out.println(inStart + "-inStart"); 
-            System.out.println(inEnd + "-inEnd"); 
-            
-            System.out.println("Root is " + pre.get(preStart));
-            
-            int rootInt = pre.get(preStart);
-            BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootInt);
-            
-            int rootIndex = in.indexOf(rootInt);
-            System.out.println(rootIndex);
-            System.out.println();
-            if (rootIndex < 0)
-                System.out.println("Item doesn't exist, prepare for error");
-                
-            root.setLeftChild(reconstruct(pre, preStart + 1, rootIndex, in, inStart, rootIndex - 1));
-            root.setRightChild(reconstruct(pre, rootIndex + 1, preEnd, in, rootIndex + 1, inEnd));
-            
-            return root;
+            return 0;
         }
         else
         {
-            return null;
+            int leftHeight = 0; //Set the left height and right height for simple assignment in the case that one child does not exist but the other does.
+            int rightHeight = 0;
+            
+            if (leftChild != null) //Checks to make sure that a left child exists.
+                leftHeight = leftChild.height(); //Recursively find the height of the left child.
+            
+            if (rightChild != null) //Checks to make sure that a right child exists.
+                rightHeight = rightChild.height(); //Recursively find the height of the right child.
+            
+            if (rightHeight > leftHeight) //Return one plus the greater of the two children's heights.
+                return 1 + rightHeight; 
+            else
+                return 1 + leftHeight;
         }
+    }
+    
+    //Convert the data of the node to a string.
+    public String toString()
+    {
+        if (data != null)
+            return data.toString();
+        return null;
+    }
+    
+    //Returns a list of all of the data in the tree preordered.
+    public ArrayList<E> preorder()
+    {
+        ArrayList<E> preordered = new ArrayList<E>(); 
+        
+         //Make sure that the current node exists.
+        
+        preordered.add(data); //Add the data of the current node to the arraylist.
+            
+        if (leftChild != null)
+            preordered.addAll(leftChild.preorder()); //Recursively preorder the left half of the tree, then add it all to the arraylist.
+                
+        if (rightChild != null)
+            preordered.addAll(rightChild.preorder()); //Recursively preorder the right half of the tree, then add it to the all arraylist.
+        
+        
+        return preordered;
+    }
+    
+    //Returns a list of all of the data in the tree postordered.
+    public ArrayList<E> postorder()
+    {
+        ArrayList<E> postordered = new ArrayList<E>();
+        
+        if (leftChild != null) //Prevent access to nonexitent nodes.
+            postordered.addAll(leftChild.postorder()); //Recursively postorder the left half of the tree, then add it all to the arraylist.
+                
+        if (rightChild != null)
+            postordered.addAll(rightChild.postorder()); //Recursively postorder the right half of the tree, then add it all to the arraylist.
+                
+        postordered.add(data); //Add the data of the current node to the arraylist.            
+        
+        return postordered;
+    }
+    
+    //Returns a list of all of the data in the tree inordered.
+    public ArrayList<E> inorder()
+    {
+        ArrayList<E> inordered = new ArrayList<E>();
+      
+        if (leftChild != null) //Prevent access to nonexitent nodes.
+            inordered.addAll(leftChild.inorder()); //Recursively inorder the left half of the tree, then add it all to the arraylist.
+                
+        inordered.add(data); //Add the data of the current node to the arraylist.
+            
+        if (rightChild != null)
+            inordered.addAll(rightChild.inorder()); //Recursively inorder the right half of the tree, then add it all to the arraylist.
+                
+        return inordered;
+    }
+    
+    //Returns a list of all the data in the tree level ordered.
+    public ArrayList<E> levelOrder()
+    {
+        ArrayList<E> levelOrdered = new ArrayList<E>();
+        Queue<BinaryTreeNode<E>> levelQueue = new LinkedList<BinaryTreeNode<E>>(); //Queue used to store the nodes that need to be added into the arraylist.
+        
+        levelQueue.add(this);
+        
+        while (!levelQueue.isEmpty()) //If there are no elements in the queue, we have gone through each of the elements. Otherwise continue iterating through the queue.
+        {
+            BinaryTreeNode<E> currentNode = levelQueue.poll(); //Get the current node in the queue and remove it from the queue.
+            levelOrdered.add(currentNode.data); //Add the data from the current node to the arraylist.
+            
+            if (currentNode.leftChild != null)
+                levelQueue.add(currentNode.leftChild); //Add the left child of the current node to the queue.
+                
+            if (currentNode.rightChild != null)
+                levelQueue.add(currentNode.rightChild); //Add the right child of the current node to the queue.
+        }
+        return levelOrdered;
     }
 }

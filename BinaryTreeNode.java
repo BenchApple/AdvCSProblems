@@ -114,13 +114,13 @@ public class BinaryTreeNode<E>
     }
     
     //Returns a list of all of the data in the tree preordered.
-    public ArrayList<E> preorder()
+    public ArrayList<BinaryTreeNode<E>> preorder() //TODO Test all of the newest changes.
     {
-        ArrayList<E> preordered = new ArrayList<E>(); 
+        ArrayList<BinaryTreeNode<E>> preordered = new ArrayList<BinaryTreeNode<E>>(); 
         
          //Make sure that the current node exists.
         
-        preordered.add(data); //Add the data of the current node to the arraylist.
+        preordered.add(this); //Add the data of the current node to the arraylist.
             
         if (leftChild != null)
             preordered.addAll(leftChild.preorder()); //Recursively preorder the left half of the tree, then add it all to the arraylist.
@@ -133,9 +133,9 @@ public class BinaryTreeNode<E>
     }
     
     //Returns a list of all of the data in the tree postordered.
-    public ArrayList<E> postorder()
+    public ArrayList<BinaryTreeNode<E>> postorder()
     {
-        ArrayList<E> postordered = new ArrayList<E>();
+        ArrayList<BinaryTreeNode<E>> postordered = new ArrayList<E>()BinaryTreeNode<E>
         
         if (leftChild != null) //Prevent access to nonexitent nodes.
             postordered.addAll(leftChild.postorder()); //Recursively postorder the left half of the tree, then add it all to the arraylist.
@@ -143,20 +143,19 @@ public class BinaryTreeNode<E>
         if (rightChild != null)
             postordered.addAll(rightChild.postorder()); //Recursively postorder the right half of the tree, then add it all to the arraylist.
                 
-        postordered.add(data); //Add the data of the current node to the arraylist.            
+        postordered.add(this); //Add the data of the current node to the arraylist.            
         
         return postordered;
     }
     
     //Returns a list of all of the data in the tree inordered.
-    public ArrayList<E> inorder()
+    public ArrayList<BinaryTreeNode<E>> inorder()
     {
-        ArrayList<E> inordered = new ArrayList<E>();
-      
+        ArrayList<BinaryTreeNode<E>> inordered = new ArrayList<BinaryTreeNode<E>>();     
         if (leftChild != null) //Prevent access to nonexitent nodes.
             inordered.addAll(leftChild.inorder()); //Recursively inorder the left half of the tree, then add it all to the arraylist.
                 
-        inordered.add(data); //Add the data of the current node to the arraylist.
+        inordered.add(this); //Add the data of the current node to the arraylist.
             
         if (rightChild != null)
             inordered.addAll(rightChild.inorder()); //Recursively inorder the right half of the tree, then add it all to the arraylist.
@@ -165,9 +164,9 @@ public class BinaryTreeNode<E>
     }
     
     //Returns a list of all the data in the tree level ordered.
-    public ArrayList<E> levelOrder()
+    public ArrayList<BinaryTreeNode<E>> levelOrder()
     {
-        ArrayList<E> levelOrdered = new ArrayList<E>();
+        ArrayList<BinaryTreeNode<E>> levelOrdered = new ArrayList<E>()BinaryTreeNode<E>
         Queue<BinaryTreeNode<E>> levelQueue = new LinkedList<BinaryTreeNode<E>>(); //Queue used to store the nodes that need to be added into the arraylist.
         
         levelQueue.add(this);
@@ -175,7 +174,7 @@ public class BinaryTreeNode<E>
         while (!levelQueue.isEmpty()) //If there are no elements in the queue, we have gone through each of the elements. Otherwise continue iterating through the queue.
         {
             BinaryTreeNode<E> currentNode = levelQueue.poll(); //Get the current node in the queue and remove it from the queue.
-            levelOrdered.add(currentNode.data); //Add the data from the current node to the arraylist.
+            levelOrdered.add(currentNode); //Add the data from the current node to the arraylist.
             
             if (currentNode.leftChild != null)
                 levelQueue.add(currentNode.leftChild); //Add the left child of the current node to the queue.

@@ -14,6 +14,9 @@ public class Reconstructor
         String preorderStr = keyboard.nextLine();
         String inorderStr = keyboard.nextLine();
         
+        System.out.println(preorderStr);
+        System.out.println(inorderStr);
+        
         Scanner preorderScan = new Scanner(preorderStr);
         Scanner inorderScan = new Scanner(inorderStr);
         
@@ -38,22 +41,24 @@ public class Reconstructor
     
     public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> preordered, ArrayList<Integer> inordered)
     {
-        return reconstruct(preordered, 0, preordered.size(), inordered, 0, inordered.size());
+        return reconstruct(preordered, 0, preordered.size() - 1, inordered, 0, inordered.size() - 1);
     }
     
     public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> pre, int preStart, int preEnd, ArrayList<Integer> in, int inStart, int inEnd)
     {
-        if ((preStart <= preEnd) || (inStart < inE=nd))
+        if ((preStart <= preEnd) || (inStart <= inEnd))
         {
-            int rootInt = pre.get(0);
+            System.out.println(preEnd);
+        
+            int rootInt = pre.get(preStart);
             BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootInt);
             
             int rootIndex = in.indexOf(rootInt);
             if (rootIndex < 0)
                 System.out.println("Item doesn't exist, prepare for error");
                 
-            root.setLeftChild(reconstruct(pre, preStart + 1, rootIndex, in, inStart, rootIndex - 1));
-            root.setRightChild(reconstruct(pre, rootIndex + 1, preEnd, in, rootIndex + 1, inEnd));
+            root.setLeftChild(reconstruct(pre, preStart + 1, rootIndex - inStart, in, inStart, rootIndex - 1));
+            root.setRightChild(reconstruct(pre, rootIndex - inStart + 1, preEnd, in, rootIndex + 1, inEnd));
             
             return root;
         }

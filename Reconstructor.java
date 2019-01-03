@@ -77,8 +77,8 @@ public class Reconstructor
             if (rootIndex < 0)
                 System.out.println("Item doesn't exist, prepare for error");
                 
-            root.setLeftChild(reconstruct(pre, preStart + 1, rootIndex - inStart, in, inStart, rootIndex - 1));
-            root.setRightChild(reconstruct(pre, rootIndex - inStart + 1, preEnd, in, rootIndex + 1, inEnd));
+            root.setLeftChild(reconstruct(pre, preStart + 1, (preStart + rootIndex - inStart, in, inStart, rootIndex - 1));
+            root.setRightChild(reconstruct(pre, preStart + rootIndex - inStart + 1, preEnd, in, rootIndex + 1, inEnd));
             
             return root;
         }

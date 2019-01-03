@@ -33,10 +33,8 @@ public class Reconstructor
         System.out.println(enteredInorder);
         
         BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder);
-        System.out.println(enteredPreorder);
-        System.out.println(reconstructedTree.preorder());
-        System.out.println(enteredInorder);
-        System.out.println(reconstructedTree.inorder());
+        ArrayList<BinaryTreeNode<Integer>> levelOrderedReconTree = reconstructedTree.levelOrder();
+        for (BinaryTreeNode<Integer> curNode : levelOrderReconTree
     }
     
     public static BinaryTreeNode<Integer> reconstruct(ArrayList<Integer> preordered, ArrayList<Integer> inordered)

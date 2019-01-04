@@ -12,18 +12,22 @@ public class Reconstructor
         ArrayList<Integer> enteredPreorder = new ArrayList<Integer>();
         ArrayList<Integer> enteredInorder = new ArrayList<Integer>();
         
+        //Set both preorder string and inorder string to their respective lines being input from the console.
         String preorderStr = keyboard.nextLine();
         String inorderStr = keyboard.nextLine();
         
+        //Set two scanners to the two lines that were read in from the console or the inputted file.
         Scanner preorderScan = new Scanner(preorderStr);
         Scanner inorderScan = new Scanner(inorderStr);
         
+        //Get the preorder input.
         while (preorderScan.hasNextInt())
         {
             enteredPreorder.add(preorderScan.nextInt());
         }
         System.out.println(enteredPreorder);
         
+        //Get the inorder input.
         while (inorderScan.hasNextInt())
         {
             enteredInorder.add(inorderScan.nextInt());
@@ -31,12 +35,13 @@ public class Reconstructor
         System.out.println(enteredInorder);
         
         BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder); //Reconstruct the Tree
-        System.out.println(enteredPreorder);
-        System.out.println(reconstructedTree.preorder());
-        System.out.println(enteredInorder);
-        System.out.println(reconstructedTree.inorder());
-        System.out.println();
-        System.out.println(reconstructedTree.levelOrder());
+        ArrayList<BinaryTreeNode<Integer>> levelOrderedReconTree = reconstructedTree.levelOrder();
+        for (BinaryTreeNode<Integer> node : levelOrderedReconTree)
+        {
+            System.out.print(node.data + " ");
+            
+            if (
+        }
     }
     
     //Shell method for the actual reconstructor.

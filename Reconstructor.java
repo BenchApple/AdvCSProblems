@@ -25,22 +25,31 @@ public class Reconstructor
         {
             enteredPreorder.add(preorderScan.nextInt());
         }
-        System.out.println(enteredPreorder);
         
         //Get the inorder input.
         while (inorderScan.hasNextInt())
         {
             enteredInorder.add(inorderScan.nextInt());
         }
-        System.out.println(enteredInorder);
         
-        BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder); //Reconstruct the Tree
-        ArrayList<BinaryTreeNode<Integer>> levelOrderedReconTree = reconstructedTree.levelOrder();
+        BinaryTreeNode<Integer> reconstructedTree = reconstruct(enteredPreorder, enteredInorder); //Reconstruct the Tree.
+        ArrayList<BinaryTreeNode<Integer>> levelOrderedReconTree = reconstructedTree.levelOrder(); //Get the level order of the Tree.
+        
+        //For every node in the level order array, print the data of the node, followed by the data of the left child of the node, followed by the data of the right child of the node.
+        //If the left or right child of the node do not exist, instead print a -1.
         for (BinaryTreeNode<Integer> node : levelOrderedReconTree)
         {
-            System.out.print(node.data + " ");
+            System.out.print(node.getData() + " ");
             
-            if (
+            if (node.getLeftChild() != null)
+                System.out.print(node.getLeftChild().getData() + " ");
+            else
+                System.out.print("-1 ");
+
+            if (node.getRightChild() != null)
+                System.out.println(node.getRightChild().getData());
+            else
+                System.out.println("-1");
         }
     }
     

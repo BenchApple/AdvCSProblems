@@ -62,8 +62,9 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public E min()
     {
-        
+        return heap[1];    
     }
+
     public E deleteMin()
     {
         

@@ -1,43 +1,91 @@
-public class HeapPriorityQueue<E extends Comparable<? super E>> implelements PriorityQueue<E>
+public class HeapPriorityQueue<E extends Comparable<? super E>> implements PriorityQueue<E>
 {
     private E[] heap;
     private int size;
     private int capacity;
 
-    public HeapPriorityQueue(E[] userArray, int userCapacity)
+    public HeapPriorityQueue(E[] requestedArray, int requestedCapacity)
     {
-        capacity = userCapacity + 1;
-        size = userHeap.length;
+        if (requestedCapacity < requestedArray.length)
+            //Throw IllegalRequestedCapacityException
 
-        heap = buildHeap(userArray);
+        capacity = requestedCapacity;
+        size = requestedArray.length;
+        heap = (E[])(new Comparable[capacity + 1]);
+
+        for (int i = 0; i < requestedArray.length + 1; i++)
+        {
+            heap[i + 1] = requestedArray[i];
+        }
+
+        buildHeap(heap);
     }
 
-    private void buildHeap(E[] userArray)
+    public HeapPriorityQueue(E[] requestedArray)
+    {
+        this(requestedArray, requestedArray.length);
+    }
+
+    public HeapPriorityQueue(int requestedCapacity)
+    {
+        
+    }
+
+    private void buildHeap(E[] heap)
     {
         for (int i = size / 2; i >= 1; i++)
         {
-            heapify(i);
+            heapify(heap, i);
         }
     }
 
     private void heapify(E[] heap, int index)
     {
         int smallest;
-        if (2*i <= heap.length && heap[2*1] < heap[i])
-            smallest = 2*i;
+        if (2*index <= heap.length && heap[2*1] < heap[index])
+            smallest = 2*index;
         else
-            smallest = i;
+            smallest = index;
 
-        if (2*i + 1 <= heap.length && heap[2*i+1] < heap[smallest])
-            smallest = 2*i + 1;
+        if (2*index + 1 <= heap.length && heap[2*index+1] < heap[smallest])
+            smallest = 2*index + 1;
 
-        if (smallest != i)
+        if (smallest != index)
         {
-            E temp = heap[i];
-            heap[i] = heap[smallest];
+            E temp = heap[index];
+            heap[index] = heap[smallest];
             heap[smallest] = temp;
 
             heapify(heap, smallest);
         }
+    }
+
+    public E min()
+    {
+
+    }
+    public E deleteMin()
+    {
+
+    }
+
+    public boolean insert(E data)
+    {
+
+    }
+
+    public boolean isEmpty()
+    {
+
+    }
+
+    public boolean isFull()
+    {
+
+    }
+
+    public int size()
+    {
+
     }
 }

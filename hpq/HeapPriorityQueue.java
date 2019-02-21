@@ -28,7 +28,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public HeapPriorityQueue(int requestedCapacity)
     {
-        
+        this((E[])(new Comparable[0]) , requestedCapacity);
     }
 
     private void buildHeap(E[] heap)
@@ -42,12 +42,12 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
     private void heapify(E[] heap, int index)
     {
         int smallest;
-        if (2*index <= heap.length && heap[2*1] < heap[index])
+        if (2*index <= heap.length && heap[2*1].compareTo(heap[index]) < 0)
             smallest = 2*index;
         else
             smallest = index;
 
-        if (2*index + 1 <= heap.length && heap[2*index+1] < heap[smallest])
+        if (2*index + 1 <= heap.length && heap[2*index+1].compareTo(heap[smallest]) < 0)
             smallest = 2*index + 1;
 
         if (smallest != index)
@@ -62,30 +62,30 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public E min()
     {
-
+        
     }
     public E deleteMin()
     {
-
+        
     }
 
     public boolean insert(E data)
     {
-
+        return false;
     }
 
     public boolean isEmpty()
     {
-
+        return false;
     }
 
     public boolean isFull()
     {
-
+        return false;
     }
 
     public int size()
     {
-
+        
     }
 }

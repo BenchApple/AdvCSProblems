@@ -1,13 +1,15 @@
+//Benjamin Chappell
+
 public class HeapPriorityQueue<E extends Comparable<? super E>> implements PriorityQueue<E>
 {
     private E[] heap;
     private int size;
     private int capacity;
 
-    public HeapPriorityQueue(E[] requestedArray, int requestedCapacity)
+    public HeapPriorityQueue(E[] requestedArray, int requestedCapacity) throws IllegalRequestedCapacity
     {
         if (requestedCapacity < requestedArray.length)
-            //Throw IllegalRequestedCapacityException
+            throw new IllegalRequestedCapacity();
 
         capacity = requestedCapacity;
         size = requestedArray.length;
@@ -60,33 +62,65 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
-    public E min()
+    public E min() throws EmptyHeapException
     {
-        return heap[1];    
+        if (!isEmpty())
+            return heap[1];   
+        else   
+        {
+            throw new EmptyHeapException();
+        } 
     }
 
-    public E deleteMin()
+    public E deleteMin() throws EmptyHeapException
     {
-        
+        if (!isEmpty())
+        {
+            E tempMin = heap[1];
+            heap[1] = heap[size];
+            size -= 1;
+
+            heapify(heap, 1);
+            return tempMin;
+        }
+        else
+        {
+            throw new EmptyHeapException();
+        }
     }
 
-    public boolean insert(E data)
+    public boolean insert(E data) throws FullHeapException
     {
-        return false;
+        if (!isFull())
+        {
+            size += 1;
+            heap[size] = data;
+            buildHeap(heap);
+            return true;
+        }
+        else
+        {
+            throw new FullHeapException();
+            //return false;
+        }
     }
 
     public boolean isEmpty()
     {
+        if (size < 1)
+            return true;
         return false;
     }
 
     public boolean isFull()
     {
+        if (size >= capacity)
+            return true;
         return false;
     }
 
     public int size()
     {
-        
+        return size;
     }
 }

@@ -15,7 +15,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         size = requestedArray.length;
         heap = (E[])(new Comparable[capacity + 1]);
 
-        for (int i = 0; i < requestedArray.length + 1; i++)
+        for (int i = 0; i < requestedArray.length; i++)
         {
             heap[i + 1] = requestedArray[i];
         }
@@ -30,7 +30,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public HeapPriorityQueue(int requestedCapacity)
     {
-        this((E[])(new Comparable[0]) , requestedCapacity);
+        this((E[])(new Comparable[1]), requestedCapacity);
     }
 
     private void buildHeap(E[] heap)

@@ -44,12 +44,12 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
     private void heapify(E[] heap, int index)
     {
         int smallest;
-        if (2*index <= heap.length && heap[2*1].compareTo(heap[index]) < 0)
+        if (2*index <= size && heap[2*1].compareTo(heap[index]) < 0)
             smallest = 2*index;
         else
             smallest = index;
 
-        if (2*index + 1 <= heap.length && heap[2*index+1].compareTo(heap[smallest]) < 0)
+        if (2*index + 1 <= size && heap[2*index+1].compareTo(heap[smallest]) < 0)
             smallest = 2*index + 1;
 
         if (smallest != index)
@@ -77,7 +77,14 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         if (!isEmpty())
         {
             E tempMin = heap[1];
-            heap[1] = heap[size];
+            /*for (E i : heap)
+            {
+                System.out.println(i);
+            }
+            System.out.println(size);
+            System.out.println(heap[size]);*/
+            heap[1] = heap[size - 1];
+            heap[size] = null;
             size -= 1;
 
             heapify(heap, 1);
@@ -93,9 +100,19 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
     {
         if (!isFull())
         {
-            size += 1;
             heap[size] = data;
-            buildHeap(heap);
+            int i = size;
+            size += 1;
+            
+            while (i > 1 && heap[i].compareTo(heap[i/2]) < 1)
+            {
+                E temp = heap[i];
+                heap[i] = heap[i/2];
+                heap[i/2] = temp;
+
+                i /= 2;
+            }
+
             return true;
         }
         else

@@ -7,7 +7,7 @@ In addition to this file, please find in this directory the PriorityQueue interf
     
 2.  Have constructors call other constructors appropriately so as to minimize repeated code.
 
-3.  Do not allow your heap to store null elements.  A NullElementException should be thrown if a user tries to include a null element in the heap.  (You must write the NullElementException class.  It's not built-in.)
+3.  Do not allow your heap to store null elements.  A NullElementException should be thrown if a user tries to include a null element in the heap.  (You must write the NullElementException class.  It's not built-in.)`
 
 4.  The pseudocode from class should be followed as closely as possible.  In particular, you should have buildHeap() and  heapify() in your HeapPriorityQueue class, but they should not be accessible by users of the class.
 

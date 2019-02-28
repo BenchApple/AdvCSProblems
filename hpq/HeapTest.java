@@ -58,6 +58,8 @@ public class HeapTest
         }
 
         System.out.println("\nShould be:          -9 -3 0 1 2 6 7 8 9 9 12 13");
+  
+        q.deleteMin();
 		
         PriorityQueue<String> stringQ = new HeapPriorityQueue<String>(20);
         

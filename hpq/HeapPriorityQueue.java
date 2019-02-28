@@ -1,3 +1,5 @@
+import javax.lang.model.util.ElementScanner6;
+
 //Benjamin Chappell
 
 public class HeapPriorityQueue<E extends Comparable<? super E>> implements PriorityQueue<E>
@@ -6,7 +8,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
     private int size;
     private int capacity;
 
-    public HeapPriorityQueue(E[] requestedArray, int requestedCapacity) throws IllegalRequestedCapacity
+    public HeapPriorityQueue(E[] requestedArray, int requestedCapacity) 
     {
         if (requestedCapacity < requestedArray.length)
             throw new IllegalRequestedCapacity();
@@ -17,6 +19,9 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
         for (int i = 0; i < requestedArray.length; i++)
         {
+            if (requestedArray[i] == null)
+                throw new NullElementException();
+
             heap[i + 1] = requestedArray[i];
         }
 
@@ -62,7 +67,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
-    public E min() throws EmptyHeapException
+    public E min() 
     {
         if (!isEmpty())
             return heap[1];   
@@ -72,7 +77,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         } 
     }
 
-    public E deleteMin() throws EmptyHeapException
+    public E deleteMin() 
     {
         if (!isEmpty())
         {
@@ -103,9 +108,9 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
-    public boolean insert(E data) throws FullHeapException
+    public boolean insert(E data) 
     {
-        if (!isFull())
+        if (!isFull() && data != null)
         {
             size++;
             heap[size] = data;
@@ -128,10 +133,18 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
             return true;
         }
-        else
+        else if(isFull())
         {
             throw new FullHeapException();
             //return false;
+        }
+        else if(data == null)
+        {
+            throw new NullElementException();
+        }
+        else   
+        {
+            return false;
         }
     }
 

@@ -12,7 +12,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
             throw new IllegalRequestedCapacity();
 
         capacity = requestedCapacity;
-        size = requestedArray.length - 1;
+        size = requestedArray.length;
         heap = (E[])(new Comparable[capacity + 1]);
 
         for (int i = 0; i < requestedArray.length; i++)
@@ -30,12 +30,12 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public HeapPriorityQueue(int requestedCapacity)
     {
-        this((E[])(new Comparable[1]), requestedCapacity);
+        this((E[])(new Comparable[0]), requestedCapacity);
     }
 
     private void buildHeap(E[] heap)
     {
-        for (int i = size / 2; i >= 1; i++)
+        for (int i = size / 2; i >= 1; i--)
         {
             heapify(heap, i);
         }

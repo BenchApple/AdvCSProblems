@@ -7,6 +7,7 @@ public class HeapTest
 {
     public static void main(String[] args)
     {
+        
         PriorityQueue<Integer> intQ = new HeapPriorityQueue<Integer>(10);
         intQ.insert(12);
         intQ.insert(4);
@@ -29,7 +30,7 @@ public class HeapTest
             intQ.deleteMin();
         }
 
-        System.out.println("\nShould be:          4 5 7 11 12 12 18 19 74");
+        System.out.println("\nShould be:          4 5 7 11 12 12 18 19 74"); 
 
 		//Test the constructor that takes an array.
 		Integer[] array = new Integer[12];

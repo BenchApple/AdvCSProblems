@@ -10,15 +10,19 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
 
     public HeapPriorityQueue(E[] requestedArray, int requestedCapacity) 
     {
-        if (requestedCapacity < requestedArray.length)
+        //Throw an exception when capacity is less than the array length.
+        if (requestedCapacity < requestedArray.length) 
             throw new IllegalRequestedCapacity();
 
         capacity = requestedCapacity;
         size = requestedArray.length;
-        heap = (E[])(new Comparable[capacity + 1]);
+        //Cast a comparable array to type E, java being stupid again.
+        heap = (E[])(new Comparable[capacity + 1]); 
 
-        for (int i = 0; i < requestedArray.length; i++)
+        //Transfer each element from the requested array to the heap.
+        for (int i = 0; i < requestedArray.length; i++) 
         {
+            //Throw error if there is a null element in the array.
             if (requestedArray[i] == null)
                 throw new NullElementException();
 

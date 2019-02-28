@@ -45,9 +45,11 @@ public class HeapTest
 		array[8] = 13;
 		array[9] = 9;
 		array[10] = 0;
-		array[11] = 2;
+        array[11] = 2;
 				
         PriorityQueue<Integer> q = new HeapPriorityQueue<Integer>(array);
+
+        q.insert(8);
 
         System.out.print("Integers in order:  ");
         

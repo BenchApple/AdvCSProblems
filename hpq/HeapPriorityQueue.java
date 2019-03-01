@@ -32,16 +32,19 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         buildHeap(heap);
     }
 
+    //Create a heap from just an array. Use the length of the array as the capacity of the heap.
     public HeapPriorityQueue(E[] requestedArray)
     {
         this(requestedArray, requestedArray.length);
     }
 
+    //Create a heap from just a capacity. The heap is entirely empty to begin with.
     public HeapPriorityQueue(int requestedCapacity)
     {
         this((E[])(new Comparable[0]), requestedCapacity);
     }
 
+    //Build a heap from the middle of the array down to the first element.
     private void buildHeap(E[] heap)
     {
         for (int i = size / 2; i >= 1; i--)
@@ -50,6 +53,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
+    //Recursively percolate the element at index down.
     private void heapify(E[] heap, int index)
     {
         int smallest;
@@ -71,6 +75,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
+    //Return the minimum element.
     public E min() 
     {
         if (!isEmpty())
@@ -81,28 +86,21 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         } 
     }
 
+    //Delete the minimum element and return it. 
     public E deleteMin() 
     {
         if (!isEmpty())
         {
+            //Store the minimum element to return it later.
             E tempMin = heap[1];
-            /*for (E i : heap)
-            {
-                System.out.println(i);
-            }
-            System.out.println(size);
-            System.out.println(heap[size]);*/
+            
+            //Replace the first spot with the last element.
             heap[1] = heap[size];
             heap[size] = null;
             size--;
 
+            //Percolate the element at index one down. Restores Heap Property.
             heapify(heap, 1);
-
-            /*for (E element : heap)
-            {
-                System.out.print(element + " ");
-            }
-            System.out.println();*/
 
             return tempMin;
         }
@@ -112,16 +110,20 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
+    //Insert an element on the end of the heap. Percolate the element up to restore heap property.
     public boolean insert(E data) 
     {
         if (!isFull() && data != null)
         {
+            //Expand size and append the new element.
             size++;
             heap[size] = data;
             int i = size;
             
+            //Percolate the new element up. 
             while (i > 1 && heap[i].compareTo(heap[i/2]) < 1)
             {
+                //Three step swap to send the element up one layer.
                 E temp = heap[i];
                 heap[i] = heap[i/2];
                 heap[i/2] = temp;
@@ -129,18 +131,11 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
                 i /= 2;
             }
 
-            /*for (E element : heap)
-            {
-                System.out.print(element + " ");
-            }
-            System.out.println();*/
-
             return true;
         }
         else if(isFull())
         {
             throw new FullHeapException();
-            //return false;
         }
         else if(data == null)
         {
@@ -152,6 +147,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         }
     }
 
+    //Check if the heap is empty.
     public boolean isEmpty()
     {
         if (size < 1)
@@ -159,6 +155,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         return false;
     }
 
+    //Check if the heap is full.
     public boolean isFull()
     {
         if (size >= capacity)
@@ -166,6 +163,7 @@ public class HeapPriorityQueue<E extends Comparable<? super E>> implements Prior
         return false;
     }
 
+    //Get the size of the heap. Equal to the amount of non Null cells in the heap.
     public int size()
     {
         return size;

@@ -24,5 +24,7 @@ public class HuffmanDecoder
         {
             current.setData((char)System.in.read());
         }
+
+        return current;
     }
 }

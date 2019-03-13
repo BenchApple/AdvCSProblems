@@ -8,7 +8,8 @@ public class HuffmanDecoder
 {
     public static void main(String[] args) throws java.io.IOException
     {
-        BinaryTreeNode root = new BinaryTreeNode<>();
+        BinaryTreeNode root = buildTree();
+
     }
 
     private BinaryTreeNode<> buildTree() throws IOException
@@ -26,5 +27,30 @@ public class HuffmanDecoder
         }
 
         return current;
+    }
+
+    private void decode(BinaryTreeNode<> root)
+    {
+        int next = System.in.read();
+        BinaryTreeNode currentNode = root;
+
+        while (next != -1)
+        {
+            if (currentNode.getLeftChild() == null)
+            {
+                System.out.println(currentNode.getData());
+                currentNode = root;
+            }
+            else if (next == 0)
+            {
+                currentNode = currentNode.getLeftChild();
+                next = System.in.read();
+            }
+            else if (next == 1)
+            {
+                currentNode = currentNode.getRightChild();
+                next = System.in.read();
+            }
+        }
     }
 }

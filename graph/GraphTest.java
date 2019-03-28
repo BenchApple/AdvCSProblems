@@ -11,8 +11,5 @@ public class GraphTest
         ArrayList<Integer> graph = new ArrayList<Integer>();
 
         graph = g.DFS();
-
-        for (int i : graph)
-            System.out.println(i);
     }
 }
